@@ -1,19 +1,26 @@
-# STM_ENV
-STM32 Baremetal Environment Template
+# Introduction
+STM32F103C8 platform baremetal (CMSIS Headers) Transmission Pressure Cable (TPC) controller for Toyota light duty trucks and SUV's that utilized the AISIN A340F transmission. Intended for use with transmission years before 2003, which is the year that Toyota and AISIN switched to a different valve body on the A340F that supported drive-by-wire to natively control transmission pressure using an electrical signal, unlike the cable driven models that this project is intended for. 
 
-## Building firmware
+# Table of Contents
+- Introduction
+- Debug Setup
+    - Cloning the repository
+    - Running the docker image
+    - Opening container in VSCode
 
-Put C source files under `src/` and headers under `include/`. The Makefile
-compiles all `.c` files in `src/` and its subdirectories with
-`arm-none-eabi-gcc`.
+# Debug Setup
+### Cloning the Repository
+To clone the repository run git clone ```ssh link or http link```. 
 
-Pass the CPU flags and linker script for your STM32 when building, for example:
+### Runing the Docker Image
+To run the docker image you first have to build the docker image. To build the docker image run 
 
-```sh
-make MCU_FLAGS="-mcpu=cortex-m4 -mthumb" LDSCRIPT=path/to/linker-script.ld
+```
+$: docker build -t stm32-dev .
 ```
 
-The linker script, startup code, and any required libraries are specific to
-your MCU and project. The default output is `build/firmware.elf`; use `make
-hex` or `make bin` to also create Intel HEX or raw binary output. Run `make
-clean` to remove generated files.
+Then run ```./docker.bash``` from the project root directory. 
+
+### Opening the container in VSCode
+
+To opent he container in VSCode to debug and flash the microcontroller, open VSCode with ```code .``` from the project root directory. Once in VSCode, make sure that the **Cortex Debugger** extension is installed, and (if desired) the **STM32F1** series debugger package extension. Once those are installed use the command pallete, ```ctrl + shift + p```, to search for ***Dev Containers: Attach to Running Container*** and select the container containing **stm** in the title. 
