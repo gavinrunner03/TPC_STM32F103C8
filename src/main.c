@@ -49,7 +49,7 @@ void SystemInit(void)
     {
     }
 
-    ADC1->CR1 |= ADC_CR1_EOCIE;
+    ADC1->CR1 |= ADC_CR1_EOCIE; /* End of Conversion Interrupt Enable */
     NVIC_EnableIRQ(ADC1_2_IRQn);
 
     ADC1->CR2 |= ADC_CR2_ADON; // Second ADON write starts conversion
