@@ -2,6 +2,7 @@
 #include "main.h"
 #include "adc.h"
 #include "watchdog.h"
+#include "servo.h"
 
 volatile int hello = 0;
 void SystemInit(void)
@@ -48,10 +49,13 @@ void SystemInit(void)
     {
     }
 
-    ADC1->CR1 |= ADC_CR1_EOCIE;
+    ADC1->CR1 |= ADC_CR1_EOCIE; /* End of Conversion Interrupt Enable */
     NVIC_EnableIRQ(ADC1_2_IRQn);
 
     ADC1->CR2 |= ADC_CR2_ADON; // Second ADON write starts conversion
+
+    /*  4. Initialize the Servo */
+    SERVO_INIT();
 }
 
 int main(void)
@@ -59,6 +63,6 @@ int main(void)
     // Basic infinite loop for an embedded target
     while (1)
     {
-        __NOP();
+        SERVO_SET_ANGLE(adc_value);
     }
 }
